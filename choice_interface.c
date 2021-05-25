@@ -30,36 +30,6 @@ Color color_choice_interface(int imgsizeY)
 	int choice;
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(console, (COORD){0, imgsizeY+3});
-	/*
-	SetConsoleTextAttribute(console, 15);
-	printf("1) blue              ");
-	printf("2) green\n");
-	printf("3) cyan              ");
-	printf("4) red\n");
-	printf("5) purple            ");
-	printf("6) yellow\n");
-	printf("7) white             ");
-	printf("8) grey\n");
-	printf("9) bright blue       ");
-	printf("10) bright green\n");
-	printf("11) bright cyan      ");
-	printf("12) bright red\n");
-	printf("13) bright purple    ");
-	printf("14) bright yellow\n");
-	printf("15) bright white\n");
-	printf("\nenter a number of color: ");
-	scanf("%d", &choice);
-	if (choice <= 0 || choice > 15) return BRIGHT_WHITE;
-	SetConsoleTextAttribute(console, choice);
-
-	// cleaning
-	for (int x = 0; x < 38; ++x)
-		for (int y = 0; y < 16; ++y)
-		{
-			SetConsoleCursorPosition(console, (COORD){x, imgsizeY+3+y});
-			putchar(' ');
-		}
-	*/
 
 	for (int i = 1; i <= 15; ++i)
 	{
