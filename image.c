@@ -29,8 +29,6 @@ void display(Image *img)
 		{
 			SetConsoleCursorPosition(console, (COORD){x,y});
 			SetConsoleTextAttribute(console, (int)img->content[x * img->sizeY + y].color);
-			/*if (img->content[x * img->sizeY + y].ch <= 31) putchar(' ');
-			else putchar(img->content[x * img->sizeY + y].ch);*/
 			putchar(img->content[x * img->sizeY + y].ch);
 		}
 
