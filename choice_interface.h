@@ -3,7 +3,7 @@
 
 #include "image.h"
 
-char char_choice_interface(int imgsizeY, Color origin);
-Color color_choice_interface(int imgsizeY);
+char char_choice_interface(int imgsizeY, Color origin, Color console_origin);
+Color color_choice_interface(int imgsizeY, Color origin, Color console_origin);
 
 #endif

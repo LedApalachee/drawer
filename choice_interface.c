@@ -7,12 +7,12 @@
 HANDLE console;
 
 
-char char_choice_interface(int imgsizeY, Color origin)
+char char_choice_interface(int imgsizeY, Color origin, Color console_origin)
 {
 	char ch;
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(console, (COORD){0, imgsizeY+3});
-	SetConsoleTextAttribute(console, 15);
+	SetConsoleTextAttribute(console, console_origin);
 	printf("enter a character: "); // string length = 19 + entered char
 	ch = getch();
 	for (int i = 0; i < 20; ++i)
@@ -25,7 +25,7 @@ char char_choice_interface(int imgsizeY, Color origin)
 }
 
 
-Color color_choice_interface(int imgsizeY)
+Color color_choice_interface(int imgsizeY, Color origin, Color console_origin)
 {
 	int choice;
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -33,14 +33,14 @@ Color color_choice_interface(int imgsizeY)
 
 	for (int i = 1; i <= 15; ++i)
 	{
-		SetConsoleTextAttribute(console, i);
+		SetConsoleTextAttribute(console, ((int)(console_origin/16) * 16 + i));
 		if ((i-1) % 3 == 0) printf("\n");
 		printf("%d", i);
 		if (i < 10) printf("    ");
 		else printf("   ");
 	}
 
-	SetConsoleTextAttribute(console, 15);
+	SetConsoleTextAttribute(console, console_origin);
 	printf("\n\nenter a number of color: ");
 	scanf("%d", &choice);
 
@@ -52,8 +52,8 @@ Color color_choice_interface(int imgsizeY)
 			putchar(' ');
 		}
 
-	if (choice <= 0 || choice > 15) return BRIGHT_WHITE;
-	SetConsoleTextAttribute(console, choice);
+	if (choice <= 0 || choice > 15) return origin;
+	SetConsoleTextAttribute(console, ((int)(console_origin/16) * 16 + choice));
 
-	return (Color)choice;
+	return ((int)(console_origin/16) * 16 + choice);
 }

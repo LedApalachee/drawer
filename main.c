@@ -45,7 +45,7 @@ int main(int argc, char **argv)
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleScreenBufferInfo(console, &origin);
 	picked_char = '?';
-	picked_color = BRIGHT_WHITE;
+	picked_color = origin.wAttributes;
 
 
 	// creating image
@@ -113,11 +113,11 @@ void input(Image *img)
 			break;
 		
 		case PICK_CHAR:
-			picked_char = char_choice_interface(sizeY, picked_color);
+			picked_char = char_choice_interface(sizeY, picked_color, origin.wAttributes);
 			break;
 		
 		case PICK_COLOR:
-			picked_color = color_choice_interface(sizeY);
+			picked_color = color_choice_interface(sizeY, picked_color, origin.wAttributes);
 			break;
 		
 		case PUT:
