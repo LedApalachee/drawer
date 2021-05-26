@@ -15,5 +15,3 @@
 #define QUIT 'q'
 
 #endif
-
-// gcc main.c image.c choice_interface.c -o test\drawer.exe
