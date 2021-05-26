@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	// ending a program if there're not enough parameters
 	if (argc < 3) return 0;
 
-	// initial actions
+	// initial actions 
 	system("cls");
 	quit = 0;
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
