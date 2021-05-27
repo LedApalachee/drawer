@@ -214,6 +214,8 @@ void load(Image *img, char *src)
 			fread(&(img->content[x * img->sizeY + y].ch), sizeof(char), 1, load);
 			fread(&(img->content[x * img->sizeY + y].color), sizeof(char), 1, load);
 		}
+
+	fclose(load);
 }
 
 
