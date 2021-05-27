@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
+#include <string.h>
 
 HANDLE console;
 
@@ -56,4 +57,22 @@ Color color_choice_interface(int imgsizeY, Color origin, Color console_origin)
 	SetConsoleTextAttribute(console, ((int)(console_origin/16) * 16 + choice));
 
 	return ((int)(console_origin/16) * 16 + choice);
+}
+
+
+char* file_choice_interface(int imgsizeY, Color origin, Color console_origin)
+{
+	char *file_path;
+	console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(console, (COORD){0, imgsizeY+3});
+	SetConsoleTextAttribute(console, console_origin);
+	printf("enter the file path: ");
+	gets(file_path);
+	for (int i = 0; i < strlen(file_path) + 21; ++i)
+	{
+		SetConsoleCursorPosition(console, (COORD){i, imgsizeY+3});
+		putchar('\0');
+	}
+	SetConsoleTextAttribute(console, origin);
+	return file_path;
 }

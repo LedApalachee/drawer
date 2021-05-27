@@ -38,6 +38,7 @@ typedef struct
 
 
 void init_image(Image *img, int sx, int sy);
-void display(Image *img);
+void display(Image *img, Color origin_console);
+void del_image(Image *img);
 
 #endif

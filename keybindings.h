@@ -12,6 +12,8 @@
 #define FILL 'f'
 #define CLEAR ' '
 #define DISPLAY '*'
+#define LOAD 'i'
+#define SAVE 'o'
 #define QUIT 'q'
 
 #endif
