@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 	if (argc < 2) return 0;
 
 	// initial actions
+	SetConsoleTitle("Led's drawer");
 	system("cls");
 	quit = 0;
 	console = GetStdHandle(STD_OUTPUT_HANDLE);
