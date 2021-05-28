@@ -206,6 +206,7 @@ void load(Image *img, char *src)
 	fread(&(img->sizeX), sizeof(int), 1, load);
 	fread(&(img->sizeY), sizeof(int), 1, load);
 
+	free(img->content);
 	img->content = (Pixel*) malloc(sizeof(Pixel) * img->sizeX * img->sizeY);
 
 	for (int x = 0; x < img->sizeX; ++x)
@@ -217,18 +218,3 @@ void load(Image *img, char *src)
 
 	fclose(load);
 }
-
-
-
-
-//   			IMAGE FILE STORING SYSTEM
-//
-//
-//	1) image's sizeX as the first sizeof(int) bytes
-//
-//	2) image's sizeY as the second sizeof(int) bytes
-//
-//	3) image's content:
-//		3.1) char ch
-//		3.2) char color
-//		and saving it so during the whole image's length
