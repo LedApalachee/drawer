@@ -1,0 +1,10 @@
+wasd - move cursor
+p - pick ascii symbol
+c - pick color
+j - put symbol at cursor's location
+k - erase symbol at cursor's location
+f - fill the image with setted symbol and color
+[space] - clear the image
+o - save image to a file
+i - load image from a file
+q - quit
