@@ -1,9 +1,5 @@
-# 27.05.2021, Led Apalachee
+# 31.05.2021, Led Apalachee
 # all rights reserved
-
-
-IMPORTANT: if image_sizeX x image_sizeY < 169 then the program will work
-incorrectly. Sad i don't even know why this is so.
 
 
 
