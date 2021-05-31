@@ -8,8 +8,8 @@
 void input(Image *img);
 void fill(Image *img);
 void clear(Image *img);
-void save(Image *img, char *dest);
-void load(Image *img, char *src);
+void save(Image *img, char *path);
+void load(Image *img, char *path);
 
 
 // main info
@@ -51,13 +51,8 @@ int main(int argc, char **argv)
 
 	// creating image
 	Image img;
-	if (argc >= 3)
-	{
-		img.sizeX = atoi(argv[1]);
-		img.sizeY = atoi(argv[2]);
-		init_image(&img, img.sizeX, img.sizeY);
-	}
-	else if (argc == 2) load(&img, argv[1]);
+	if (argc == 2) load(&img, argv[1]);
+	else init_image(&img, atoi(argv[1]), atoi(argv[2]));
 
 
 	// locating the cursor at the centre of image
@@ -122,7 +117,7 @@ void input(Image *img)
 		case ERASE:
 			img->content[cursorposX * img->sizeY + cursorposY].ch = '\0';
 			img->content[cursorposX * img->sizeY + cursorposY].color = NOCOLOR;
-			putchar(' ');
+			putchar('\0');
 			break;
 		
 		case FILL:
@@ -142,12 +137,10 @@ void input(Image *img)
 			break;
 
 		case LOAD:
+			del_image(img);
 			load(img, file_choice_interface(img->sizeY, picked_color, origin.wAttributes));
-			if (img->sizeX <= cursorposX || img->sizeY <= cursorposY)
-			{
-				cursorposX = img->sizeX/2;
-				cursorposY = img->sizeY/2;
-			}
+			cursorposX = img->sizeX/2;
+			cursorposY = img->sizeY/2;
 			display(img, origin.wAttributes);
 			break;
 		
@@ -179,41 +172,43 @@ void clear(Image *img)
 			img->content[x * img->sizeY + y].ch = '\0';
 			img->content[x * img->sizeY + y].color = NOCOLOR;
 			SetConsoleCursorPosition(console, (COORD){x,y});
-			putchar(' ');
+			putchar('\0');
 		}
 }
 
 
-void save(Image *img, char *dest)
+void save(Image *img, char *path)
 {
-	FILE *save = fopen(dest, "w");
-	fwrite(&(img->sizeX), sizeof(int), 1, save);
-	fwrite(&(img->sizeY), sizeof(int), 1, save);
+	fflush(stdout);
+	FILE *file = fopen(path, "wb");
+	fwrite(&img->sizeX, sizeof(int), 1, file);
+	fwrite(&img->sizeY, sizeof(int), 1, file);
 
 	for (int x = 0; x < img->sizeX; ++x)
 		for (int y = 0; y < img->sizeY; ++y)
 		{
-			fwrite(&(img->content[x * img->sizeY + y].ch), sizeof(char), 1, save);
-			fwrite(&(img->content[x * img->sizeY + y].color), sizeof(char), 1, save);
+			fwrite(&img->content[x * img->sizeY + y].ch, sizeof(char), 1, file);
+			fwrite(&img->content[x * img->sizeY + y].color, sizeof(char), 1, file);
 		}
-	fclose(save);
+
+	fclose(file);
 }
 
 
-void load(Image *img, char *src)
+void load(Image *img, char *path)
 {
-	FILE *load = fopen(src, "r");
-	fread(&(img->sizeX), sizeof(int), 1, load);
-	fread(&(img->sizeY), sizeof(int), 1, load);
-
-	free(img->content);
-	img->content = (Pixel*) malloc(sizeof(Pixel) * img->sizeX * img->sizeY);
+	int sx, sy;
+	fflush(stdin);
+	FILE *load = fopen(path, "rb");
+	fread(&sx, sizeof(int), 1, load);
+	fread(&sy, sizeof(int), 1, load);
+	init_image(img, sx, sy);
 
 	for (int x = 0; x < img->sizeX; ++x)
 		for (int y = 0; y < img->sizeY; ++y)
 		{
-			fread(&(img->content[x * img->sizeY + y].ch), sizeof(char), 1, load);
-			fread(&(img->content[x * img->sizeY + y].color), sizeof(char), 1, load);
+			fread(&img->content[x * img->sizeY + y].ch, sizeof(char), 1, load);
+			fread(&img->content[x * img->sizeY + y].color, sizeof(char), 1, load);
 		}
 
 	fclose(load);
