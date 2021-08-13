@@ -1,6 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+// windows.h colors for cmd
 typedef enum
 {
 	NOCOLOR,
