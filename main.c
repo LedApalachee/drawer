@@ -18,7 +18,7 @@ HANDLE console;
 char quit;
 
 
-// image size and cursor's coordinates
+// cursor's coordinates
 int cursorposX, cursorposY;
 
 
@@ -27,7 +27,7 @@ char picked_char;
 Color picked_color;
 
 
-// moves cursor in the console at his defined coordinates
+// moves cursor in the console at his actual coordinates
 void update_cursor(void)
 {
 	SetConsoleCursorPosition(console, (COORD){cursorposX, cursorposY});
